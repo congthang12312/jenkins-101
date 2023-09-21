@@ -7,7 +7,8 @@ pipeline {
     stages {
         stage('build image') {
             steps {
-                sh 'docker build -t ${IMAGE_NAME}:latest app.py'
+                sh 'cat Dockerfile'
+                sh 'docker build -t ${IMAGE_NAME}:latest .'
             }
         }
 
