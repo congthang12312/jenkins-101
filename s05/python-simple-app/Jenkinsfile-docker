@@ -23,6 +23,7 @@ pipeline {
         }
         stage('test') {
                 steps {
+                    sh 'docker ps'
                     sh 'sleep 10 && curl -s localhost:8000'
                 }
         }
