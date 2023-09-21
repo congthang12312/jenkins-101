@@ -5,7 +5,6 @@ pipeline {
             args '-u root' // Chạy với quyền root
         }
     }
-    }
     stages {
         stage('build') {
             steps {
@@ -17,12 +16,12 @@ pipeline {
             steps {
                 sh 'python3 s05/python-simple-app/app.py'
             }
-            
         }
 
         stage('test') {
             steps {
                 sh 'sleep 60 && curl -s localhost:8000'
+                sh 'echo "Hello, world!"'
             }
         }
 
