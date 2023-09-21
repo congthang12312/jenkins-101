@@ -16,6 +16,14 @@ pipeline {
             }
         }
 
+        stage('cleanup port') {
+            steps {
+                sh 'apt-get update && apt-get install psmisc'
+                sh 'which fuser'
+                sh 'fuser -k 8000/tcp'
+            }
+        }
+
         stage('run container') {
             steps {
                 sh 'docker run -p 8000:5000 --name=python -d ${IMAGE_NAME}:latest'
@@ -29,8 +37,6 @@ pipeline {
         }
         stage('cleanup') {
             steps {
-                sh 'apt-get update && apt-get install psmisc'
-                sh 'which fuser'
                 sh 'fuser -k 8000/tcp'
             }
         }
