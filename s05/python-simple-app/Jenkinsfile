@@ -29,7 +29,7 @@ pipeline {
 
         stage('cleanup') {
             steps {
-                sh 'lsof -ti :8000 | xargs kill -9'
+                sh 'netstat -tuln | awk '$4 ~ /:8000$/ {split($NF,a,"/"); print a[1]}' | xargs kill -9'
             }
         }
 
