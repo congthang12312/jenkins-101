@@ -10,7 +10,7 @@ pipeline {
                 sh 'docker image prune -f'
                 sh 'docker image ls'
                 sh 'docker ps'
-                sh 'echo ls'
+                sh 'echo ls ./s05/python-simple-app'
                 sh 'docker build -t ${IMAGE_NAME}:latest .'
                 sh 'echo "done!"'
             }
