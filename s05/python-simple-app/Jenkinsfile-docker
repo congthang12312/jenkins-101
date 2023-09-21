@@ -7,7 +7,7 @@ pipeline {
     stages {
         stage('build image') {
             steps {
-                sh 'docker rm heuristic_roentgen reverent_lewin'
+                sh 'docker rm --force heuristic_roentgen reverent_lewin'
                 sh 'docker ps'
                 sh 'docker build -t ${IMAGE_NAME}:latest .'
                 sh 'echo "done!"'
