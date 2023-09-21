@@ -29,7 +29,7 @@ pipeline {
 
         stage('cleanup') {
             steps {
-                sh 'apt-get update'
+                sh 'apt-get update && apt-get install psmisc'
                 sh 'fuser -k 8000/tcp'
             }
         }
