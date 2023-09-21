@@ -9,16 +9,16 @@ pipeline {
             steps {
                 sh 'docker image prune -f'
                 sh 'docker image ls'
+                sh 'docker rm --force python'
                 sh 'docker ps'
-                sh 'ls s05/python-simple-app'
                 sh 'cd s05/python-simple-app && docker build -t ${IMAGE_NAME}:latest .'
-                sh 'echo "done!"'
+                sh 'echo "build done!"'
             }
         }
 
         stage('run container') {
             steps {
-                sh 'docker run -p 8000:5000 -d ${IMAGE_NAME}:latest'
+                sh 'docker run -p 8000:5000 --name=python -d ${IMAGE_NAME}:latest'
             }
         }
         stage('test') {
