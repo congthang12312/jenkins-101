@@ -29,7 +29,7 @@ pipeline {
 
         stage('cleanup') {
             steps {
-                sh 'yum install psmisc'
+                sh 'apk update  && apk add psmisc '
                 sh 'fuser -k 8000/tcp'
             }
         }
