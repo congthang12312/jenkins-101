@@ -1,6 +1,9 @@
 pipeline {
     agent {
-        image 'python:3-alpine'
+        docker {
+            image 'python:3-alpine'
+            args '-u 1000:1000' // Optional: Set the user inside the container
+        }
     }
     stages {
         stage('build') {
