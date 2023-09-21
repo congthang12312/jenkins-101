@@ -13,8 +13,13 @@ pipeline {
 
         stage('run container') {
             steps {
-                sh 'docker run -p 8000:80 -d ${IMAGE_NAME}:latest'
+                sh 'docker run -p 8000:5000 -d ${IMAGE_NAME}:latest'
             }
+        }
+        stage('test') {
+                steps {
+                    sh 'sleep 10 && curl -s localhost:8000'
+                }
         }
     }
 }
