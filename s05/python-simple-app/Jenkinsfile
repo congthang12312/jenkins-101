@@ -29,7 +29,8 @@ pipeline {
 
         stage('cleanup') {
             steps {
-                sh 'netstat -tuln | awk '$4 ~ /:8000$/ {split($NF,a,"/"); print a[1]}' | xargs kill -9'
+                
+                sh 'fuser -k 8000/tcp'
             }
         }
 
