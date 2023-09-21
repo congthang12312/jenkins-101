@@ -7,7 +7,7 @@ pipeline {
     stages {
         stage('build image') {
             steps {
-                sh 'docker build -t ${IMAGE_NAME}:latest s05/python-simple-app/Dockerfile'
+                sh 'docker build -t ${IMAGE_NAME}:latest .'
             }
         }
 
