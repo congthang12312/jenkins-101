@@ -7,7 +7,6 @@ pipeline {
     stages {
         stage('build image') {
             steps {
-                sh 'cat Dockerfile'
                 sh 'docker build -t ${IMAGE_NAME}:latest .'
             }
         }
