@@ -11,7 +11,7 @@ pipeline {
                 sh 'docker image ls'
                 sh 'docker ps'
                 sh 'ls s05/python-simple-app'
-                sh 'docker build -t ${IMAGE_NAME}:latest .'
+                sh 'docker build -t ${IMAGE_NAME}:latest s05/python-simple-app'
                 sh 'echo "done!"'
             }
         }
