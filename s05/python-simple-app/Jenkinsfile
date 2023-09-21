@@ -29,9 +29,7 @@ pipeline {
 
         stage('cleanup') {
             steps {
-                sh 'apt-get install psmisc'
-                sh 'which fuser'
-                sh 'fuser -k 8000/tcp'
+                sh 'lsof -ti :8000 | xargs kill -9'
             }
         }
 
