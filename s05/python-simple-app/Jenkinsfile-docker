@@ -10,6 +10,7 @@ pipeline {
                 sh 'docker image prune -f'
                 sh 'docker image ls'
                 sh 'docker ps'
+                sh 'echo ls'
                 sh 'docker build -t ${IMAGE_NAME}:latest .'
                 sh 'echo "done!"'
             }
