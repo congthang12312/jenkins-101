@@ -7,6 +7,8 @@ pipeline {
     stages {
         stage('build image') {
             steps {
+                sh 'docker logs python-app-demo'
+                sh 'docker image ls'
                 sh 'docker image prune -f'
                 sh 'docker image ls'
                 sh 'docker rm --force python-app-without-dockerfile python-app-demo'
@@ -35,13 +37,15 @@ pipeline {
         stage('test') {
                 steps {
                     sh 'curl -s localhost:8000'
+                    sh 'docker logs python-app-demo'
                 }
         }
 
         stage('cleanup') {
             steps {
+              sh 'docker rm --force python-app-demo'
               sh 'echo "DONE!"'
-             // sh 'fuser -k 8000/tcp'
+            
             }
         }
     }
