@@ -6,7 +6,6 @@ pipeline {
     stages {
         stage('build image') {
             steps {
-                sh 'docker logs python-app-demo'
                 sh 'docker image ls'
                 sh 'docker image prune -f'
                 sh 'docker image ls'
