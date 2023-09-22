@@ -31,7 +31,7 @@ pipeline {
             steps {
                 sh 'apt-get update && apt-get install psmisc'
                 sh 'which fuser'
-                sh 'fuser -k 8000/tcp'
+                sh 'fuser -k 8001/tcp'
             }
         }
 
