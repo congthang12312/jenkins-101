@@ -26,7 +26,7 @@ systemctl start docker
 - Grant Docker socket permission to Jenkins user
 ```bash
 usermod -a -G docker jenkins
-systemctl restart jenkins
+systemctl restart jenkins demo
 ```
 
 ### Create Pipeline job for testing Nodejs
