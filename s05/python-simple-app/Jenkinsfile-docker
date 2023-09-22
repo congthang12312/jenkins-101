@@ -9,7 +9,7 @@ pipeline {
             steps {
                 sh 'docker image prune -f'
                 sh 'docker image ls'
-                sh 'docker rm --force 290faa86a0dd'
+                sh 'docker rm --force python-app-without-dockerfile python-app-demo'
                 sh 'docker ps'
                 sh 'cd s05/python-simple-app && docker build -t ${IMAGE_NAME}:latest .'
                 sh 'sleep 10'
