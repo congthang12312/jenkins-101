@@ -19,7 +19,7 @@ pipeline {
         stage('Kill Port 8000') {
             steps {
                 script {
-                    sh 'kill $(lsof -t -i:8000)'
+                    sh 'netstat -tuln | grep ":8000 " | awk \'{print $7}\' | cut -d"/" -f1 | xargs -r kill'
                 }
             }
         }
