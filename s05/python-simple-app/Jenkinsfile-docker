@@ -12,23 +12,11 @@ pipeline {
                 sh 'docker rm --force python'
                 sh 'docker ps'
                 sh 'cd s05/python-simple-app && docker build -t ${IMAGE_NAME}:latest .'
+                sh 'sleep 10'
                 sh 'echo "build done!"'
             }
         }
 
-        stage('Kill Port 8000') {
-            steps {
-                script {
-                    sh 'netstat -tuln | grep ":8000 " | awk \'{print $7}\' | cut -d"/" -f1 | xargs -r kill'
-                }
-            }
-        }
-
-        stage('run container') {
-            steps {
-                sh 'docker run -p 8000:5000 --name=python -d ${IMAGE_NAME}:latest'
-            }
-        }
         stage('test') {
                 steps {
                     sh 'docker ps'
