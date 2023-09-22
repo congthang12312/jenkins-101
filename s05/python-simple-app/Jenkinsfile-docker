@@ -1,7 +1,6 @@
 pipeline {
     agent any
     environment {
-    
         IMAGE_NAME = 'app'
     }
     stages {
@@ -11,21 +10,13 @@ pipeline {
                 sh 'docker image ls'
                 sh 'docker image prune -f'
                 sh 'docker image ls'
-                sh 'docker rm --force python-app-without-dockerfile python-app-demo'
+                sh 'docker rm --force python-app-demo'
                 sh 'docker ps'
                 sh 'cd s05/python-simple-app && docker build -t ${IMAGE_NAME}:latest .'
                 sh 'sleep 10'
                 sh 'echo "build done!"'
             }
         }
-
-     // stage('Kill Port 8000') {
-     //       steps {
-     //          script {
-     //               sh 'netstat -tuln | grep ":8000 " | awk \'{print $7}\' | cut -d"/" -f1 | xargs -r kill'
-     //           }
-     //       }
-     //   }
 
         stage('run container') {
                 steps {
