@@ -9,17 +9,14 @@ pipeline {
                 sh 'docker image ls'
                 sh 'docker image prune -f'
                 sh 'docker image ls'
-                sh 'docker rm --force python-app-demo'
-                sh 'docker ps'
                 sh 'cd s05/python-simple-app && docker build -t ${IMAGE_NAME}:latest .'
-                sh 'sleep 10'
                 sh 'echo "build done!"'
             }
         }
 
         stage('run container') {
                 steps {
-                    sh 'docker run -p 8001:8001 --name=python-app-demo -d ${IMAGE_NAME}:latest && sleep 20'
+                    sh 'docker run -p 8001:8001 --name=python-app-demo -d ${IMAGE_NAME}:latest && sleep 10'
                     sh 'docker ps'
                 }
         }
@@ -27,7 +24,7 @@ pipeline {
         stage('test') {
                 steps {
                     sh 'curl -s http://host.docker.internal:8001'
-                    sh 'docker logs python-app-demo'
+                    sh 'echo "test done!!!"'
                 }
         }
 
