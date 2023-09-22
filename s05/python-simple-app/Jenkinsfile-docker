@@ -16,11 +16,11 @@ pipeline {
             }
         }
 
-        stage('cleanup port') {
+        stage('Kill Port 8000') {
             steps {
-                sh 'apt-get update && apt-get install psmisc'
-                sh 'which fuser'
-                sh 'fuser -k 8000/tcp'
+                script {
+                    sh 'kill $(lsof -t -i:8000)'
+                }
             }
         }
 
