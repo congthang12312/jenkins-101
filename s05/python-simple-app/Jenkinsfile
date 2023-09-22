@@ -2,8 +2,7 @@ pipeline {
     agent {
         docker {
             image 'python'
-            args '-u root' // Chạy với quyền root
-            label 'python-app-without-dockerfile'
+            args '-u root --name python-app-without-dockerfile' // Chạy với quyền root
         }
     }
     stages {
