@@ -2,7 +2,9 @@ pipeline {
     agent any
     environment {
         IMAGE_NAME = 'app'
+        REPOSITORY = 'dcthang'
         DOCKERHUB_CREDENTIALS = credentials('scretkey-dockerhub')
+        
     }
     stages {
         stage('build image') {
@@ -10,14 +12,14 @@ pipeline {
                 sh 'docker image ls'
                 sh 'docker image prune -f'
                 sh 'docker image ls'
-                sh 'cd s05/python-simple-app && docker build -t ${IMAGE_NAME}:latest .'
+                sh 'cd s05/python-simple-app && docker build -t ${REPOSITORY}/${IMAGE_NAME}:latest .'
                 sh 'echo "build done!"'
             }
         }
 
         stage('run container') {
                 steps {
-                    sh 'docker run -p 8001:8001 --name=python-app-demo -d ${IMAGE_NAME}:latest && sleep 10'
+                    sh 'docker run -p 8001:8001 --name=python-app-demo -d ${REPOSITORY}/${IMAGE_NAME}:latest && sleep 10'
                     sh 'docker ps'
                 }
         }
@@ -38,7 +40,7 @@ pipeline {
         stage('push image') {
             steps {
               sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
-              sh 'docker push ${IMAGE_NAME}:latest'
+              sh 'docker push ${REPOSITORY}/${IMAGE_NAME}:latest'
               sh 'echo "Push Success!"'
             }
         }
