@@ -2,6 +2,7 @@ pipeline {
     agent any
     environment {
         IMAGE_NAME = 'app'
+        DOCKERHUB_CREDENTIALS = credentials('scretkey-dockerhub')
     }
     stages {
         stage('build image') {
@@ -20,7 +21,6 @@ pipeline {
                     sh 'docker ps'
                 }
         }
-
         stage('test') {
                 steps {
                     sh 'curl -s http://host.docker.internal:8001'
@@ -28,13 +28,24 @@ pipeline {
                 }
         }
 
-        stage('cleanup') {
+        stage('cleanup container') {
             steps {
               sh 'docker rm --force python-app-demo'
               sh 'docker ps'
               sh 'echo "DONE!"'
-            
             }
+        }
+        stage('push into dockerhub') {
+            steps {
+              sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdir'
+              sh 'docker push dcthang/${IMAGE_NAME}:latest'
+              sh 'echo "Push Success!"'
+            }
+        }
+    }
+    post {
+        always {
+            sh 'docker logout'
         }
     }
 }
