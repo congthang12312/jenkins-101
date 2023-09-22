@@ -44,6 +44,7 @@ pipeline {
         stage('cleanup') {
             steps {
               sh 'docker rm --force python-app-demo'
+              sh 'docker ps'
               sh 'echo "DONE!"'
             
             }
