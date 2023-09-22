@@ -9,7 +9,7 @@ pipeline {
             steps {
                 sh 'docker image prune -f'
                 sh 'docker image ls'
-                sh 'docker rm --force python'
+                sh 'docker rm --force 290faa86a0dd'
                 sh 'docker ps'
                 sh 'cd s05/python-simple-app && docker build -t ${IMAGE_NAME}:latest .'
                 sh 'sleep 10'
@@ -26,20 +26,22 @@ pipeline {
      //   }
 
         stage('run container') {
-            steps {
-                sh 'docker run -p 8000:5000 --name=python -d ${IMAGE_NAME}:latest'
-            }
+                steps {
+                    sh 'docker run -p 8000:5000 --name=python-app-demo -d ${IMAGE_NAME}:latest && sleep 20'
+                    sh 'docker ps'
+                }
         }
 
         stage('test') {
                 steps {
-                    sh 'docker ps'
-                    sh 'sleep 20 && curl -s localhost:8000'
+                    sh 'curl -s localhost:8000'
                 }
         }
+
         stage('cleanup') {
             steps {
-                sh 'fuser -k 8000/tcp'
+             // sh 'echo "DONE!"'
+             // sh 'fuser -k 8000/tcp'
             }
         }
     }
