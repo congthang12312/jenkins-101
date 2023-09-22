@@ -3,6 +3,7 @@ pipeline {
         docker {
             image 'python'
             args '-u root' // Chạy với quyền root
+            name 'python-app-without-dockerfile'
         }
     }
     stages {
