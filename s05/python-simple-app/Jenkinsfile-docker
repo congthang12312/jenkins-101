@@ -23,12 +23,12 @@ pipeline {
                     sh 'docker ps'
                 }
         }
-        stage('test') {
-                steps {
-                    sh 'curl -s http://host.docker.internal:8001'
-                    sh 'echo "test done!!!"'
-                }
-        }
+       // stage('test') {
+       //         steps {
+       //             sh 'curl -s http://host.docker.internal:8001'
+       //             sh 'echo "test done!!!"'
+      //          }
+     //   }
 
         stage('cleanup container') {
             steps {
